@@ -1,6 +1,8 @@
 package uz.isystem.valyutakursi
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -21,23 +23,33 @@ class SetupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivitySetupBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.onBoardView.adapter = adapter
 
         loadBoardData()
         binding.skipButton.setOnClickListener {
             binding.onBoardView.setCurrentItem(2, true)
 
+
         }
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("aaaaaa", Context.MODE_PRIVATE)
+        var b = sharedPreferences.getBoolean("a", false)
+        if (b) {
+            intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
 
-        binding.nextButton.setOnClickListener {
-            if (binding.onBoardView.currentItem == 2) {
-                intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
+            binding.nextButton.setOnClickListener {
+                if (binding.onBoardView.currentItem == 2) {
+                    intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    b = sharedPreferences.edit().putBoolean("a", true).commit()
+                } else {
 
-                binding.onBoardView.setCurrentItem(binding.onBoardView.currentItem + 1, true)
+                    binding.onBoardView.setCurrentItem(binding.onBoardView.currentItem + 1, true)
+                }
             }
         }
     }

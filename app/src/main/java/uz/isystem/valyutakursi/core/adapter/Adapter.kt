@@ -1,5 +1,6 @@
 package uz.isystem.valyutakursi.core.adapter
 
+import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
             notifyItemRangeInserted(field.size - value.size, value.size)
         }
 
+
     fun clearData() {
         data.clear()
         notifyDataSetChanged()
@@ -25,18 +27,21 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemValyuteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bindData(d: CurrencyData) {
             val delta1 = d.Diff.toDouble()
             if (delta1 >= 0) {
-                binding.image1.setImageResource(R.drawable.yuqoriga)
+                binding.imageView.setImageResource(R.drawable.yuqoriga)
             } else if (delta1 < 0) {
                 if (delta1 < 0) {
-                    binding.image1.setImageResource(R.drawable.pastga)
+                    binding.imageView.setImageResource(R.drawable.pastga)
                 }
             }
             binding.name.ellipsize = TextUtils.TruncateAt.MARQUEE
             binding.name.isSelected = true
-            binding.name.text = d.CcyNm_UZ
+            binding.code.text = "Code " + d.Code
+            binding.nominal.text = "Nominal " + d.Nominal
+            binding.name.text = "1" + d.CcyNm_UZ + ", " + d.Ccy
 //            val animatsia=AnimationUtils.loadAnimation(binding.name.context,R.anim.name_)
 //            binding.name.startAnimation(animatsia)
             binding.kurs.text = d.Rate
@@ -46,6 +51,7 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
 
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -58,6 +64,7 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
         )
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bindData(data[position])
 
@@ -65,3 +72,4 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
     override fun getItemCount(): Int = data.size
 
 }
+
