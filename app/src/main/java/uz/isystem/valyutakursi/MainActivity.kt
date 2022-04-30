@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val service: CBUService = connection.create(CBUService::class.java)
 
         val result = service.getLatestData()
-        
+
         result.enqueue(object : Callback<List<CurrencyData>> {
             override fun onResponse(
                 call: Call<List<CurrencyData>>,
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+
             override fun onFailure(call: Call<List<CurrencyData>>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t}")
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_LONG).show()
@@ -60,6 +61,9 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+}
+
+private fun Any.notifyDataSetChanged() {
 }
 
 

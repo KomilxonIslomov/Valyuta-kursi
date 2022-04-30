@@ -41,14 +41,20 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
             binding.name.isSelected = true
             binding.code.text = "Code " + d.Code
             binding.nominal.text = "Nominal " + d.Nominal
-            binding.name.text = "1" + d.CcyNm_UZ + ", " + d.Ccy
+            binding.name.text = d.CcyNm_UZ + ", " + d.Ccy
 //            val animatsia=AnimationUtils.loadAnimation(binding.name.context,R.anim.name_)
 //            binding.name.startAnimation(animatsia)
             binding.kurs.text = d.Rate
             binding.date.text = d.Date
             binding.delta.text = d.Diff
+
+
         }
 
+        val searchDta = data.filter {
+            it.CcyNm_UZ.startsWith("a")
+            data.add(it)
+        }
 
     }
 
