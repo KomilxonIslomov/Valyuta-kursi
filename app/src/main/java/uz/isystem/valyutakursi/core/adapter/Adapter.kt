@@ -50,12 +50,6 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
 
         }
-
-        val searchDta = data.filter {
-            it.CcyNm_UZ.startsWith("a")
-            data.add(it)
-        }
-
     }
 
 
